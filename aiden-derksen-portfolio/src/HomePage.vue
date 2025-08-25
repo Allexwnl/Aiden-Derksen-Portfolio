@@ -2,17 +2,25 @@
     <main>
         <NavBar />
         <section class="introduction-container">
-            <h1>Aiden Derksen</h1>
             <div class="text-container">
-                <p>Welcome to my portfolio! I'm Aiden Derksen, a passionate full-stack
-                    developer with a knack for creating dynamic and responsive web applications. Explore my projects and
-                    get in touch!</p>
+                <h1>Aiden Derksen</h1>
+                <p></p>
             </div>
             <div class="introduction-image">
-                <img src="" alt="">
+                <img src="../src/assets/img/aidenPF.jpg" alt="">
             </div>
         </section>
-    </main> 
+        <section class="about-me-container">
+            <img src="../src/assets/img/camera.png" alt="">
+            <div class="about-me-text">
+                <h2 id="about">About Me</h2>
+                <p></p>
+            </div>
+        </section>
+        <section class="projects">
+
+        </section>
+    </main>
 </template>
 
 <script>
