@@ -1,0 +1,41 @@
+nav {
+    background-color: transparent;
+    overflow: hidden;
+    border-bottom: 3px solid #c300ff;
+      background-color: rgba(255, 255, 255, 0.1);
+ backdrop-filter: blur(10px);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    padding: 0 20px;
+}
+
+nav h3 {
+    font-weight: bold;
+    font-size: 30px;
+    margin: 0;
+    padding: 10px 0;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    width: 200px;
+    display: flex;
+    justify-content: space-between;
+}
+
+li {
+    float: left;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
