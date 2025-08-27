@@ -25,8 +25,8 @@
 
 <script setup>
 import NavBar from '../components/NavBar.vue';
-import '@/css/navbar.css';
-import '@/css/homepage.css';
+import '../css/navbar.css';
+import '../css/homepage.css';
 
 
 </script>
