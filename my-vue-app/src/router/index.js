@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 import { supabase } from '../supabase/supabase.js'
 import HomePage from '../views/HomePage.vue';
 import LoginAdmin from '../admin/LoginAdmin.vue';
-import Dashboard from '../admin/Dashboard.vue';
+import Dashboard from '../admin/DashBoard.vue';
 
 
 const routes = [
