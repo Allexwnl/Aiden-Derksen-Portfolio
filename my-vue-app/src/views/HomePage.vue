@@ -21,8 +21,19 @@
             <div v-for="project in projects" :key="project.id" class="border p-4 mb-4 rounded">
                 <h2 class="text-xl">{{ project.title }}</h2>
                 <p>{{ project.description }}</p>
-                <div class="flex gap-2 mt-2 flex-wrap">
-                    <img v-for="img in project.images" :src="img" :key="img" class="w-32 h-32 object-cover" />
+
+                <div v-if="project.images.length" class="relative w-64 h-64 mt-2">
+                    <img :src="project.images[project.currentImage]" class="w-full h-full object-cover rounded" />
+
+                    <button v-if="project.images.length > 1" @click="prevImage(project)"
+                        class="absolute left-0 top-1/2 -translate-y-1/2 bg-black/50 text-white px-2 py-1 rounded">
+                        ‹
+                    </button>
+
+                    <button v-if="project.images.length > 1" @click="nextImage(project)"
+                        class="absolute right-0 top-1/2 -translate-y-1/2 bg-black/50 text-white px-2 py-1 rounded">
+                        ›
+                    </button>
                 </div>
             </div>
         </section>
@@ -39,26 +50,36 @@ import { ref, onMounted } from 'vue'
 // Reactive variable
 const projects = ref([])
 
-// Fetch projects
 const fetchProjects = async () => {
-    const { data, error } = await supabase
-        .from('projects')
-        .select('*')
-        .order('id', { ascending: false })
+  const { data, error } = await supabase
+    .from('projects')
+    .select('*')
+    .order('id', { ascending: false })
 
-    if (error) {
-        console.log(error.message)
-        return
-    }
+  if (error) {
+    console.log('Fetch projects error:', error.message)
+    return
+  }
 
-    projects.value = data.map(p => ({
-        ...p,
-        images: p.images || []
-    }))
+  projects.value = data.map(p => ({
+    ...p,
+    images: p.images || [],
+    currentImage: 0 // start altijd bij eerste foto
+  }))
 }
 
-// Run on component mount
+const nextImage = (project) => {
+  if (!project.images.length) return
+  project.currentImage = (project.currentImage + 1) % project.images.length
+}
+
+const prevImage = (project) => {
+  if (!project.images.length) return
+  project.currentImage = 
+    (project.currentImage - 1 + project.images.length) % project.images.length
+}
+
 onMounted(() => {
-    fetchProjects()
+  fetchProjects()
 })
 </script>
