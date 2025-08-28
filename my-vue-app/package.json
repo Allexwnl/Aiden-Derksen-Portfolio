@@ -9,6 +9,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@auth/neon-adapter": "^1.10.0",
+    "@neondatabase/serverless": "^1.0.1",
+    "@supabase/supabase-js": "^2.56.0",
+    "next-auth": "^4.24.11",
     "vue": "^3.5.18",
     "vue-router": "^4.5.1"
   },
