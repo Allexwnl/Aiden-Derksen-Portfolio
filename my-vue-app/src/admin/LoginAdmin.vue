@@ -1,45 +1,49 @@
 <template>
-  <div>
-    <input v-model="email" placeholder="E-mail" type="email" />
-    <input v-model="password" placeholder="Wachtwoord" type="password" />
-    <button @click="login">Login</button>
-    <p v-if="error">{{ error }}</p>
+  <NavBar />
+  <div class="p-4">
+    <input v-model="email" placeholder="E-mail" type="email" class="border p-2 mb-2 w-full"/>
+    <input v-model="password" placeholder="Wachtwoord" type="password" class="border p-2 mb-2 w-full"/>
+    <button @click="login" class="bg-blue-500 text-white p-2 rounded">Login</button>
+    <p v-if="error" class="text-red-500 mt-2">{{ error }}</p>
   </div>
 </template>
 
-<script>
+<script setup>
+import NavBar from '../components/NavBar.vue'
 import { supabase } from '../supabase/supabase.js'
+import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 
+// Reactive variables
+const email = ref('')
+const password = ref('')
+const error = ref('')
+
+// Router
+const router = useRouter()
+
+// Allowed emails
 const allowedEmails = [
-  "alexanderzoet@gmail.com"
+  "alexanderzoet@gmail.com",
+  "aidenderksen2007@gmail.com"
 ]
 
-export default {
-  data() {
-    return {
-      email: '',
-      password: '',
-      error: ''
-    }
-  },
-  methods: {
-    async login() {
-      if (!allowedEmails.includes(this.email)) {
-        this.error = "Deze e-mail mag niet inloggen";
-        return;
-      }
+// Login function
+const login = async () => {
+  if (!allowedEmails.includes(email.value)) {
+    error.value = "Deze e-mail mag niet inloggen"
+    return
+  }
 
-      const { data, error } = await supabase.auth.signInWithPassword({
-        email: this.email,
-        password: this.password
-      });
+  const { data, error: loginError } = await supabase.auth.signInWithPassword({
+    email: email.value,
+    password: password.value
+  })
 
-      if (error) {
-        this.error = error.message;
-      } else {
-        this.$router.push('/dashboard');
-      }
-    }
+  if (loginError) {
+    error.value = loginError.message
+  } else {
+    router.push('/dashboard')
   }
 }
 </script>
