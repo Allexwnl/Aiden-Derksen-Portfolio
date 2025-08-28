@@ -1,6 +1,9 @@
 import { createRouter, createWebHistory } from 'vue-router';
+import { supabase } from '../supabase/supabase.js'
 import HomePage from '../views/HomePage.vue';
 import LoginAdmin from '../admin/LoginAdmin.vue';
+import Dashboard from '../admin/Dashboard.vue';
+
 
 const routes = [
   { path: '/', component: HomePage },
@@ -15,15 +18,16 @@ const router = createRouter({
 
 router.beforeEach(async (to, from, next) => {
   const requiresAuth = to.meta.requiresAuth
-  const user = supabase.auth.user()
-  const allowedEmails = ['alexanderzoet@gmail.com', 'aidenderksen2007@gmail.com'] // jouw admin emails
+  const { data: { session } } = await supabase.auth.getSession()
+  const allowedEmails = ['alexanderzoet@gmail.com', 'aidenderksen2007@gmail.com']
 
   if (requiresAuth) {
-    if (!user || !allowedEmails.includes(user.email)) {
-      return next('/login') // redirect naar login als niet ingelogd of geen admin
+    if (!session || !allowedEmails.includes(session.user.email)) {
+      return next('/admin') // redirect naar login
     }
   }
   next()
 })
+
 
 export default router;
