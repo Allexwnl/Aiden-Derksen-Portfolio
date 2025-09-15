@@ -18,12 +18,12 @@
             </div>
         </section>
         <section class="projects">
-            <div v-for="project in projects" :key="project.id" class="border p-4 mb-4 rounded">
+            <div v-for="project in projects" :key="project.id" class="--projectCard">
                 <h2 class="text-xl">{{ project.title }}</h2>
                 <p>{{ project.description }}</p>
 
                 <div v-if="project.images.length" class="relative w-64 h-64 mt-2">
-                    <img :src="project.images[project.currentImage]" class="w-full h-full object-cover rounded" />
+                    <img :src="project.images[project.currentImage]" class="project-images" />
 
                     <button v-if="project.images.length > 1" @click="prevImage(project)"
                         class="absolute left-0 top-1/2 -translate-y-1/2 bg-black/50 text-white px-2 py-1 rounded">
@@ -37,6 +37,15 @@
                 </div>
             </div>
         </section>
+        <div class="projects">
+    <div class="project">Project 1</div>
+    <div class="project">Project 2</div>
+    <div class="project">Project 3</div>
+    <div class="project">Project 4</div>
+    <div class="project">Project 5</div>
+    <div class="project">Project 6</div>
+</div>
+
     </main>
 </template>
 
