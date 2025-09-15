@@ -4,7 +4,7 @@
     <section class="introduction-container">
       <div class="text-container">
         <h1>Aiden Derksen</h1>
-        <p></p>
+        <p>Vastleggen van momenten vol passie, kleur en leven.</p>
       </div>
       <div class="introduction-image">
         <img src="../assets/img/aidenPF.jpg" alt="">
