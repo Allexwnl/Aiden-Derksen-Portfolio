@@ -1,0 +1,63 @@
+@media (max-width: 1680px) {
+    .projectShow {
+        margin-left: 0px;
+        align-items: center;
+        width: 100%;
+    }
+
+    .projectDetails {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 50px;
+        margin-left: 0;
+    }
+
+    .projectInfo {
+        width: 100%;
+    }
+
+    .projectInfo h1 {
+        font-size: 50px;
+        text-align: center;
+    }
+
+    .projectInfo p {
+        font-size: 20px;
+        text-align: center;
+    }
+
+    .backBtn {
+        width: 150px;
+    }
+
+    .projectTitle {
+        font-size: 24px;
+        text-align: center;
+    }    
+}
+
+@media (max-width: 635px) {
+    .projectInfo h1 {
+        font-size: 36px;
+    }
+
+    .projectInfo p {
+        font-size: 16px;
+    }
+
+    .backBtn {
+        width: 120px;
+        padding: 8px 8px;
+        font-size: 14px;
+    }
+
+    .projectTitle {
+        font-size: 20px;
+    }   
+    
+    .imageCarousel {
+        width: 250px;
+        height: 400px;
+    }
+}

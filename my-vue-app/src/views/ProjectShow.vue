@@ -26,6 +26,7 @@ import { useRoute } from 'vue-router'
 import { supabase } from '../supabase/supabase.js'
 import NavBar from '../components/NavBar.vue'
 import '../css/projectShow.css';
+import '../css/projectShowMobileFirst.css';
 
 const route = useRoute()
 const project = ref(null)

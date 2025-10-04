@@ -43,7 +43,7 @@ import '../css/navbar.css';
 import '../css/homepage.css';
 import '../css/standardCSS.css';
 import '../css/projectCards.css';
-import '../css/mobileFirst.css';
+import '../css/homePageMobileFirst.css';
 import { supabase } from '../supabase/supabase.js'
 import { ref, onMounted } from 'vue'
 
