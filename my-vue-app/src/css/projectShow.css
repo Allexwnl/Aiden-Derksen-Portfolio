@@ -1,0 +1,101 @@
+.projectDetails {
+    margin-left: 50px;
+    width: 90%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.projectShow {
+    margin-left: 50px;
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.projectInfo {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+}
+
+.projectInfo h1 {
+    font-size: 70px;
+    margin-bottom: 20px;
+    margin: 0;
+}
+
+.projectInfo p {
+    font-size: 25px;
+    line-height: 1.6;
+}
+
+.backBtn {
+    display: flex;
+    justify-content: center;
+    background-color: white;
+    color: black;
+    border: 3px solid #c300ff;
+    width: 100px;
+    padding: 10px 10px;
+    font-size: 16px;
+    border-radius: 40px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.backBtn:hover {
+    background-color: #c300ff;
+    color: #fff;
+}
+
+.projectTitle {
+    font-size: 28px;
+    margin-bottom: 10px;
+}
+
+
+/* Carousel */
+.imageCarousel {
+    position: relative;
+    width: 500px;
+    height: 600px;
+    overflow: hidden;
+    border-radius: 10px;
+    border: 2px solid #333;
+}
+
+.carouselImage {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.carouselBtn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
+    border: none;
+    font-size: 30px;
+    padding: 6px 12px;
+    cursor: pointer;
+    border-radius: 6px;
+}
+
+.carouselBtn.prev {
+    left: 15px;
+}
+
+.carouselBtn.next {
+    right: 15px;
+}
+
+.carouselBtn:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}

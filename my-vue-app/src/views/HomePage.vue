@@ -27,14 +27,12 @@
     </section>
     <h2 class="--title">Projecten</h2>
     <section id="projects" class="projects">
-      <div v-for="project in projects" :key="project.id" class="--projectCard">
-        <img :src="project.images[project.currentImage]" class="project-images" />
+      <div v-for="project in projects" :key="project.id" class="--projectCard" @click="goToProject(project.id)">
+        <img :src="project.images[project.currentImage]" class="project-images" alt="Project afbeelding" />
         <h2 class="--projectTitle">{{ project.title }}</h2>
-
-        <div v-if="project.images.length" class="relative w-64 h-64 mt-2">
-        </div>
       </div>
     </section>
+
 
   </main>
 </template>
@@ -48,6 +46,14 @@ import '../css/projectCards.css';
 import '../css/mobileFirst.css';
 import { supabase } from '../supabase/supabase.js'
 import { ref, onMounted } from 'vue'
+
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
+
+const goToProject = (id) => {
+  router.push(`/project/${id}`)
+}
 
 // Reactive variable
 const projects = ref([])
