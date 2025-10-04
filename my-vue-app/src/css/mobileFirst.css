@@ -1,0 +1,139 @@
+.--mobileImg {
+    display: none;
+}
+
+@media (max-width: 1680px) {
+    main {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 100px;
+    }
+
+    .introduction-container {
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        height: auto;
+        gap: 0px;
+    }
+
+    .introduction-container h1 {
+        font-size: 70px;
+    }
+
+    .introduction-container p {
+        width: 100%;
+        font-size: 20px;
+    }
+
+    .button-container {
+        display: flex;
+        justify-content: center;
+    }
+
+    .--projectBtn {
+        margin-top: 30px;
+        width: 50%;
+    }
+
+    .introduction-image img:first-child {
+        display: none;
+    }
+
+    .--mobileImg {
+        display: block;
+        width: 300px;
+        border-radius: 50%;
+        margin-top: 20px;
+    }
+
+    .about-me-container {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .about-me-container img {
+        order: 2;
+        width: 90%;
+        margin-top: 50px;
+        transform: scaleX(-1);
+    }
+
+    .about-me-text {
+        order: 1;
+        margin-left: 0;
+        width: 90%;
+        align-items: center;
+        text-align: center;
+        margin-top: 50px;
+    }
+
+    .about-me-text h2 {
+        font-size: 40px;
+    }
+}
+
+@media (max-width: 635px) {
+    nav h3 {
+        font-size: 30px;
+    }
+
+    ul {
+        margin-right: 20px;
+        width: auto;
+    }
+
+    a {
+        font-size: 14px;
+    }
+
+    .--title {
+        font-size: 40px;
+        margin-top: 50px;
+        margin-bottom: 0;
+    }
+
+    main h2 {
+        gap: 0px;
+    }
+
+    .introduction-container {
+        margin-left: 0px;
+    }
+
+    .introduction-container h1 {
+        font-size: 50px;
+    }
+
+    .introduction-container p {
+        font-size: 18px;
+        width: 100%;
+    }
+
+    .introduction-image img:first-child {
+        display: none;
+    }
+
+    .introduction-image img {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+    }
+
+    .--projectBtn {
+        width: 100%;
+    }
+
+    .--mobileImg {
+        display: block;
+        width: 200px;
+        border-radius: 50%;
+        margin-top: 20px;
+    }
+
+    .about-me-text h2 {
+        font-size: 30px;
+    }
+}
