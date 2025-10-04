@@ -18,6 +18,7 @@
 
         <p v-else>Laden...</p>
     </div>
+    <FooTer />
 </template>
 
 <script setup>
@@ -25,6 +26,7 @@ import { ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import { supabase } from '../supabase/supabase.js'
 import NavBar from '../components/NavBar.vue'
+import FooTer from '../components/FooTer.vue';
 import '../css/projectShow.css';
 import '../css/projectShowMobileFirst.css';
 

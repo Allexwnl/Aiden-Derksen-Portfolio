@@ -23,3 +23,85 @@ main {
     text-align: center;
     margin-top: 100px;
 }
+
+.--footerContainer {
+    width: 100%;
+    padding: 20px 0;
+    margin-top: 50px;
+    background-color: white;
+    color: black;
+    border-top: 3px solid #c300ff;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-around;
+    position: relative;
+    bottom: 0;
+}
+
+.--footerContainer ul {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    transition: color 1s ease-in-out;
+}
+
+.--footerContainer a:hover {
+    text-decoration: underline;
+    color: #c300ff;
+}
+
+.--footerContent {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    gap: 50px;
+    flex-wrap: wrap;
+    overflow: visible;
+}
+
+.--footerContent * {
+    margin-right: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.--footerContent p,
+.--footerContent div,
+.--footerContent ul {
+    font-size: 14px;
+    text-align: center;
+    width: 500px;
+}
+
+
+@media (max-width: 1680px) {
+    .--footerContent {
+        justify-content: start;
+    }
+}
+
+@media (max-width: 1070px) {
+    .--footerContent {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 635px) {
+    .--footerContent {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .--footerContent p,
+    .--footerContent div,
+    .--footerContent ul {
+        width: 100%;
+        font-size: 12px;
+    }
+
+}

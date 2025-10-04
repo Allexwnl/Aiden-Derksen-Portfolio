@@ -33,12 +33,13 @@
       </div>
     </section>
 
-
+    <FooTer />
   </main>
 </template>
 
 <script setup>
 import NavBar from '../components/NavBar.vue';
+import FooTer from '../components/FooTer.vue';
 import '../css/navbar.css';
 import '../css/homepage.css';
 import '../css/standardCSS.css';
