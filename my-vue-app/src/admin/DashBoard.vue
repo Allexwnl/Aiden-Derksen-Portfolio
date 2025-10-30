@@ -4,7 +4,6 @@
     <div class="dashboard">
         <h1 class="dashboardTitle">Project Dashboard</h1>
 
-        <!-- Nieuw project formulier -->
         <section class="addProjectContainer">
             <h2 class="sectionTitle">Nieuw Project</h2>
 
@@ -18,13 +17,11 @@
             </button>
         </section>
 
-        <!-- Project overzicht -->
         <section class="projectsContainer">
             <div v-for="project in projects" :key="project.id" class="dashboardProjectCard">
                 <h2 class="projectTitle">{{ project.title }}</h2>
                 <p class="projectDescription">{{ project.description }}</p>
 
-                <!-- Afbeeldingencarrousel -->
                 <div v-if="project.images.length" class="imageCarousel">
                     <img :src="project.images[project.currentImage]" class="carouselImage" />
 
@@ -32,7 +29,6 @@
                     <button @click="nextImage(project)" class="carouselBtn next">›</button>
                 </div>
 
-                <!-- Verwijderknop -->
                 <button @click="deleteProject(project.id, project.images)" class="deleteButton">
                     Verwijder project
                 </button>
@@ -176,84 +172,6 @@ onMounted(() => {
 </script>
 
 <style scoped>
-.dashboard {
-    padding: 20px;
-    max-width: 1000px;
-    margin: auto;
-    font-family: Arial, sans-serif;
-}
-
-.dashboardTitle {
-    text-align: center;
-    margin-bottom: 30px;
-}
-
-.addProjectContainer {
-    background-color: #f5f5f5;
-    border: 2px solid #ccc;
-    border-radius: 10px;
-    padding: 20px;
-    margin-bottom: 40px;
-}
-
-.sectionTitle {
-    font-size: 20px;
-    margin-bottom: 10px;
-}
-
-.inputField {
-    display: block;
-    width: 100%;
-    margin-bottom: 10px;
-    padding: 8px;
-    border: 1px solid #aaa;
-    border-radius: 4px;
-}
-
-.inputFile {
-    display: block;
-    margin-bottom: 15px;
-}
-
-.addButton {
-    background-color: #007bff;
-    color: white;
-    padding: 10px 15px;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-}
-
-.addButton:hover {
-    background-color: #0056b3;
-}
-
-.projectsContainer {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: center;
-}
-
-.dashboardProjectCard {
-    width: 300px;
-    background-color: #e0e0e0;
-    border: 2px solid #333;
-    border-radius: 10px;
-    padding: 15px;
-    position: relative;
-}
-
-.projectTitle {
-    font-size: 18px;
-    margin-bottom: 5px;
-}
-
-.projectDescription {
-    font-size: 14px;
-    margin-bottom: 10px;
-}
-
 .imageCarousel {
     position: relative;
     width: 100%;
@@ -269,37 +187,4 @@ onMounted(() => {
     object-fit: cover;
 }
 
-.carouselBtn {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background-color: rgba(0, 0, 0, 0.6);
-    color: white;
-    border: none;
-    font-size: 20px;
-    padding: 5px 10px;
-    cursor: pointer;
-    border-radius: 4px;
-}
-
-.carouselBtn.prev {
-    left: 10px;
-}
-
-.carouselBtn.next {
-    right: 10px;
-}
-
-.deleteButton {
-    background-color: #c62828;
-    color: white;
-    border: none;
-    padding: 8px 12px;
-    border-radius: 6px;
-    cursor: pointer;
-}
-
-.deleteButton:hover {
-    background-color: #a91f1f;
-}
 </style>

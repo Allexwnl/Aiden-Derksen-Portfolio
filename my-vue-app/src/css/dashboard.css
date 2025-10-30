@@ -1,3 +1,10 @@
+.dashboard {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
 .dashboardTitle {
     width: 100%;
     text-align: center;
@@ -37,12 +44,18 @@
 
 .addProjectContainer input,
 .addProjectContainer textarea {
-    border: 1px solid #ccc;
+    border: 1px solid #c300ff;
     padding: 10px;
     margin-bottom: 10px;
     width: 100%;
     box-sizing: border-box;
     border-radius: 5px;
+}
+
+@media (max-width:768px) {
+    .addProjectContainer {
+        width: 280px;
+    }
 }
 
 .project-images img {
@@ -51,15 +64,35 @@
     object-fit: fill;
 }
 
+.projectsContainer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
 .dashboardProjectCard {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     border: 1px solid #c300ff;
     padding: 20px;
     margin-bottom: 20px;
-    width: 600px;
-    height: 400px;
+    width: 250px;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
+.deleteButton {
+    background-color: #c62828;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+}
 
-
+.deleteButton:hover {
+    background-color: #a91f1f;
+}
