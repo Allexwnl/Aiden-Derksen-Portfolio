@@ -1,6 +1,3 @@
-/* ======================== */
-/* 📱 BASIS NAVBAR STRUCTUUR */
-/* ======================== */
 .mobile-nav {
   position: fixed;
   top: 0;
@@ -13,7 +10,6 @@
   z-index: 999;
 }
 
-/* Header met logo + hamburger */
 .nav-header {
   display: flex;
   justify-content: space-between;
@@ -28,9 +24,6 @@
   margin: 0;
 }
 
-/* ======================== */
-/* 🍔 HAMBURGER STYLING */
-/* ======================== */
 .hamburger {
   display: flex;
   flex-direction: column;
@@ -51,7 +44,6 @@
   transition: all 0.3s ease;
 }
 
-/* ✖️ Hamburger animatie naar kruis */
 .hamburger span.open:nth-child(1) {
   transform: rotate(45deg) translateY(8px);
 }
@@ -64,9 +56,6 @@
   transform: rotate(-45deg) translateY(-8px);
 }
 
-/* ======================== */
-/* 📜 NAVIGATIEMENU STYLING */
-/* ======================== */
 .nav-menu {
   list-style: none;
   display: flex;
@@ -94,9 +83,6 @@
   color: #c300ff;
 }
 
-/* ======================== */
-/* 🌀 TRANSITIE ANIMATIE */
-/* ======================== */
 .slide-fade-enter-from {
   opacity: 0;
   transform: translateY(-10px);
@@ -115,9 +101,6 @@
   transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
-/* ======================== */
-/* 💻 VERBORGEN OP DESKTOP */
-/* ======================== */
 @media (min-width: 769px) {
   .mobile-nav {
     display: none;

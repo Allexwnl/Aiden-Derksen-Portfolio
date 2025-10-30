@@ -92,6 +92,13 @@ a {
     font-size: 17px;
 }
 
+input {
+    background-color: white;
+    border: 2px solid #c300ff;
+    border-radius: 50px;
+    padding: 10px;
+}
+
 @media (max-width: 1680px) {
     .--footerContent {
         justify-content: start;

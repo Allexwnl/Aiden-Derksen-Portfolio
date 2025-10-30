@@ -56,6 +56,7 @@ import '../css/homepage.css';
 import '../css/standardCSS.css';
 import '../css/projectCards.css';
 import '../css/homePageMobileFirst.css';
+import '../css/adminLogin.css';
 import { supabase } from '../supabase/supabase.js'
 import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'

@@ -34,7 +34,6 @@
   color: black;
 }
 
-/* --- Hamburger knop --- */
 .nav-toggle {
   background: none;
   border: none;
@@ -43,9 +42,7 @@
   cursor: pointer;
 }
 
-/* --- Navigatielinks (verborgen standaard op mobiel) --- */
 .nav-links {
-  list-style: none;
   display: flex;
   flex-direction: row;
   align-items: center;

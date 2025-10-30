@@ -1,5 +1,6 @@
 <template>
   <NavBar />
+  <MobileNavbar />
   <div class="projectShow">
     <button class="backBtn" @click="$router.back()">← Terug</button>
 
@@ -37,6 +38,7 @@ import NavBar from '../components/NavBar.vue'
 import FooTer from '../components/FooTer.vue'
 import '../css/projectShow.css'
 import '../css/projectShowMobileFirst.css'
+import MobileNavbar from '../components/MobileNavbar.vue';
 
 const route = useRoute()
 const project = ref(null)

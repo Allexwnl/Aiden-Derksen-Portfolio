@@ -1,15 +1,20 @@
 <template>
   <NavBar />
-  <div class="p-4">
-    <input v-model="email" placeholder="E-mail" type="email" class="border p-2 mb-2 w-full"/>
-    <input v-model="password" placeholder="Wachtwoord" type="password" class="border p-2 mb-2 w-full"/>
-    <button @click="login" class="bg-blue-500 text-white p-2 rounded">Login</button>
-    <p v-if="error" class="text-red-500 mt-2">{{ error }}</p>
-  </div>
+  <MobileNavbar />
+  <section class="login">
+    <div class="--containerLogin">
+      <h1>Admin Login</h1>
+      <input v-model="email" placeholder="E-mail" type="email"/>
+      <input v-model="password" placeholder="Wachtwoord" type="password" />
+      <button @click="login" class="--loginBtn">Login</button>
+      <p v-if="error">{{ error }}</p>
+    </div>
+  </section>
 </template>
 
 <script setup>
 import NavBar from '../components/NavBar.vue'
+import MobileNavbar from '../components/MobileNavbar.vue';
 import { supabase } from '../supabase/supabase.js'
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
