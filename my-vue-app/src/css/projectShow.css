@@ -80,13 +80,14 @@
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    background-color: rgba(0, 0, 0, 0.6);
-    color: white;
+    background-color: white;
+    color: #c300ff;
     border: none;
     font-size: 30px;
     padding: 6px 12px;
     cursor: pointer;
     border-radius: 6px;
+    transition: background 0.3s ease;
 }
 
 .carouselBtn.prev {
@@ -99,4 +100,5 @@
 
 .carouselBtn:hover {
     background-color: rgba(0, 0, 0, 0.8);
+    color: white;
 }

@@ -1,5 +1,5 @@
 <template>
-    <footer id="#contact" class="--footerContainer">
+    <footer id="contact" class="--footerContainer">
         <h2>Contact</h2>
         <div class="--footerContent">
             <p>© 2024 Aiden Derksen</p>

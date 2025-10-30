@@ -9,7 +9,7 @@ body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    background-color: #ffffff;
+    background-color: #e9e9e9;
 }
 
 main {
@@ -78,6 +78,19 @@ main {
     width: 500px;
 }
 
+ul {
+    list-style-type: none;
+}
+
+li {
+    float: center;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+    font-size: 17px;
+}
 
 @media (max-width: 1680px) {
     .--footerContent {

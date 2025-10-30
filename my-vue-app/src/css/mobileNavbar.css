@@ -1,0 +1,125 @@
+/* ======================== */
+/* 📱 BASIS NAVBAR STRUCTUUR */
+/* ======================== */
+.mobile-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: #ffffffd9;
+  backdrop-filter: blur(8px);
+  border-bottom: 3px solid #c300ff;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  z-index: 999;
+}
+
+/* Header met logo + hamburger */
+.nav-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+}
+
+.nav-logo {
+  font-size: 22px;
+  font-weight: bold;
+  color: #000;
+  margin: 0;
+}
+
+/* ======================== */
+/* 🍔 HAMBURGER STYLING */
+/* ======================== */
+.hamburger {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+}
+
+.hamburger span {
+  display: block;
+  width: 28px;
+  height: 3px;
+  background-color: #000;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+
+/* ✖️ Hamburger animatie naar kruis */
+.hamburger span.open:nth-child(1) {
+  transform: rotate(45deg) translateY(8px);
+}
+
+.hamburger span.open:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger span.open:nth-child(3) {
+  transform: rotate(-45deg) translateY(-8px);
+}
+
+/* ======================== */
+/* 📜 NAVIGATIEMENU STYLING */
+/* ======================== */
+.nav-menu {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  margin: 0;
+  padding: 2rem 0;
+}
+
+.nav-menu li {
+  width: 100%;
+  text-align: center;
+}
+
+.nav-menu a {
+  text-decoration: none;
+  color: #000;
+  font-size: 18px;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.nav-menu a:hover {
+  color: #c300ff;
+}
+
+/* ======================== */
+/* 🌀 TRANSITIE ANIMATIE */
+/* ======================== */
+.slide-fade-enter-from {
+  opacity: 0;
+  transform: translateY(-10px);
+}
+
+.slide-fade-enter-active {
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.slide-fade-leave-to {
+  opacity: 0;
+  transform: translateY(-10px);
+}
+
+.slide-fade-leave-active {
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* ======================== */
+/* 💻 VERBORGEN OP DESKTOP */
+/* ======================== */
+@media (min-width: 769px) {
+  .mobile-nav {
+    display: none;
+  }
+}
