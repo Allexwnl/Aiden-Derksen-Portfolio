@@ -10,10 +10,10 @@
             <input v-model="title" placeholder="Titel" class="inputField" />
             <textarea v-model="description" placeholder="Beschrijving" class="inputField"></textarea>
 
-            <input type="file" multiple @change="handleFiles" class="inputFile" />
+            <input type="file" accept="image/*" multiple @change="handleFiles" class="inputFile" />
 
-            <button @click="addProject" class="addButton">
-                Voeg project toe
+            <button @click="addProject" class="addButton" :disabled="busy">
+                {{ busy ? statusText : 'Voeg project toe' }}
             </button>
         </section>
 
@@ -23,13 +23,12 @@
                 <p class="projectDescription">{{ project.description }}</p>
 
                 <div v-if="project.images.length" class="imageCarousel">
-                    <img :src="project.images[project.currentImage]" class="carouselImage" />
-
+                    <img :src="project.images[project.currentImage].thumb" class="carouselImage" />
                     <button @click="prevImage(project)" class="carouselBtn prev">‹</button>
                     <button @click="nextImage(project)" class="carouselBtn next">›</button>
                 </div>
 
-                <button @click="deleteProject(project.id, project.images)" class="deleteButton">
+                <button @click="removeProject(project)" class="deleteButton">
                     Verwijder project
                 </button>
             </div>
@@ -41,134 +40,110 @@
 import NavBar from '../components/NavBar.vue'
 import MobileNavbar from '../components/MobileNavbar.vue';
 import '../css/dashboard.css'
-import { supabase } from '../supabase/supabase.js'
+import { db } from '../firebase/firebase.js'
+import {
+    collection, addDoc, getDocs, deleteDoc, doc, query, orderBy, serverTimestamp,
+} from 'firebase/firestore'
+import { processImage } from '../lib/imageProcessing.js'
 import { ref, onMounted } from 'vue'
 
-const supabaseUrl = 'https://reverggwhilxgijmxidc.supabase.co'
-
-// Reactieve data
 const title = ref('')
 const description = ref('')
 const files = ref([])
 const projects = ref([])
+const busy = ref(false)
+const statusText = ref('')
 
-// Bestand selectie
 const handleFiles = (e) => {
     files.value = Array.from(e.target.files)
-    console.log('Geselecteerde bestanden:', files.value)
 }
 
-// Projecten ophalen
 const fetchProjects = async () => {
-    const { data, error } = await supabase
-        .from('projects')
-        .select('*')
-        .order('id', { ascending: false })
-
-    if (error) {
-        console.error('❌ Fout bij ophalen projecten:', error.message)
-        return
-    }
-
-    projects.value = data.map((p) => ({
-        ...p,
-        images: p.images || [],
+    const q = query(collection(db, 'projects'), orderBy('createdAt', 'desc'))
+    const snap = await getDocs(q)
+    projects.value = snap.docs.map((d) => ({
+        id: d.id,
+        ...d.data(),
+        images: d.data().images || [],
         currentImage: 0,
     }))
 }
 
-// Volgende afbeelding
 const nextImage = (project) => {
     if (!project.images.length) return
     project.currentImage = (project.currentImage + 1) % project.images.length
 }
-
-// Vorige afbeelding
 const prevImage = (project) => {
     if (!project.images.length) return
     project.currentImage =
         (project.currentImage - 1 + project.images.length) % project.images.length
 }
 
-// Project toevoegen
-const addProject = async () => {
-    console.log('▶️ addProject functie gestart')
+// Verwerkt + uploadt één bestand via de Netlify-functie -> { full, thumb } CDN-URL's.
+const uploadFile = async (file) => {
+    const { fullB64, thumbB64 } = await processImage(file)
+    const baseName = `${Date.now()}_${Math.random().toString(36).slice(2)}`
+    const res = await fetch('/.netlify/functions/githubUpload', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ baseName, fullB64, thumbB64 }),
+    })
+    if (!res.ok) throw new Error(await res.text())
+    return res.json()
+}
 
+const addProject = async () => {
     if (!title.value) return alert('Titel is verplicht')
 
-    const uploadedUrls = []
-
-    // Afbeeldingen uploaden
-    if (files.value.length) {
-        for (const file of files.value) {
-            if (!(file instanceof File)) continue
-
-            const fileExt = file.name.split('.').pop()
-            const fileName = `${Date.now()}_${Math.random().toString(36).slice(2)}.${fileExt}`
-
-            const { error: uploadError } = await supabase.storage
-                .from('project-images')
-                .upload(fileName, file)
-
-            if (uploadError) {
-                console.error('❌ Upload fout:', uploadError.message)
-                continue
-            }
-
-            const publicUrl = `${supabaseUrl}/storage/v1/object/public/project-images/${fileName}`
-            uploadedUrls.push(publicUrl)
+    busy.value = true
+    try {
+        const images = []
+        for (let i = 0; i < files.value.length; i++) {
+            statusText.value = `Foto ${i + 1}/${files.value.length} uploaden...`
+            images.push(await uploadFile(files.value[i]))
         }
+
+        statusText.value = 'Project opslaan...'
+        await addDoc(collection(db, 'projects'), {
+            title: title.value,
+            description: description.value,
+            images,
+            cover: images[0]?.thumb || '',
+            createdAt: serverTimestamp(),
+        })
+
+        alert('Project toegevoegd!')
+        title.value = ''
+        description.value = ''
+        files.value = []
+        await fetchProjects()
+    } catch (e) {
+        alert('Fout bij toevoegen project: ' + (e.message || e))
+    } finally {
+        busy.value = false
+        statusText.value = ''
     }
-
-    const { data, error: insertError } = await supabase
-        .from('projects')
-        .insert([
-            {
-                title: title.value,
-                description: description.value,
-                images: uploadedUrls,
-            },
-        ])
-        .select()
-
-    if (insertError) {
-        console.error('❌ Fout bij toevoegen project:', insertError.message)
-        alert('Fout bij toevoegen project: ' + insertError.message)
-        return
-    }
-
-    console.log('✅ Project toegevoegd:', data)
-    alert('Project toegevoegd!')
-
-    title.value = ''
-    description.value = ''
-    files.value = []
-
-    fetchProjects()
 }
 
-// Project verwijderen
-const deleteProject = async (projectId, imagesArray) => {
-    for (const url of imagesArray) {
-        try {
-            const path = url.split('/project-images/')[1]
-            if (!path) continue
-            const { error } = await supabase.storage.from('project-images').remove([path])
-            if (error) console.error('Storage delete error:', error.message)
-        } catch (err) {
-            console.error('Storage delete exception:', err)
+const removeProject = async (project) => {
+    if (!confirm('Project verwijderen?')) return
+    try {
+        const urls = (project.images || []).flatMap((img) => [img.full, img.thumb]).filter(Boolean)
+        if (urls.length) {
+            await fetch('/.netlify/functions/githubDelete', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ urls }),
+            })
         }
+        await deleteDoc(doc(db, 'projects', project.id))
+        await fetchProjects()
+    } catch (e) {
+        alert('Fout bij verwijderen: ' + (e.message || e))
     }
-
-    const { error: delError } = await supabase.from('projects').delete().eq('id', projectId)
-    if (delError) console.error('Delete project error:', delError.message)
-
-    fetchProjects()
 }
 
-onMounted(() => {
-    fetchProjects()
-})
+onMounted(fetchProjects)
 </script>
 
 <style scoped>
@@ -186,5 +161,4 @@ onMounted(() => {
     height: 100%;
     object-fit: cover;
 }
-
 </style>

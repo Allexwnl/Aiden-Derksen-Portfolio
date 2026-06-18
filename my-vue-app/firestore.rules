@@ -1,0 +1,15 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /projects/{id} {
+      // Iedereen mag projecten lezen (publieke portfolio).
+      allow read: if true;
+      // Alleen de twee admin-accounts mogen schrijven.
+      allow write: if request.auth != null
+        && request.auth.token.email in [
+          'alexanderzoet@gmail.com',
+          'aidenderksen2007@gmail.com'
+        ];
+    }
+  }
+}

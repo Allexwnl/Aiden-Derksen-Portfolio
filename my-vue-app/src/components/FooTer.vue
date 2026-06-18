@@ -33,7 +33,7 @@
                         Allexwnl
                     </a>
                 </p>
-                <strong class="buildWithText">Gebouwd met Vue.js en Supabase</strong>
+                <strong class="buildWithText">Gebouwd met Vue.js en Firebase</strong>
             </div>
 
         </div>

@@ -13,10 +13,11 @@
       <div v-if="project.images && project.images.length" class="imageCarousel">
         <transition name="fade" mode="out-in">
           <img
-            :key="project.images[currentImage]"
-            :src="project.images[currentImage]"
+            :key="currentImage"
+            :src="project.images[currentImage].full"
             class="carouselImage"
             alt="Project afbeelding"
+            loading="lazy"
           />
         </transition>
 
@@ -31,9 +32,10 @@
 </template>
 
 <script setup>
-import { ref, onMounted, watch } from 'vue'
+import { ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
-import { supabase } from '../supabase/supabase.js'
+import { db } from '../firebase/firebase.js'
+import { doc, getDoc } from 'firebase/firestore'
 import NavBar from '../components/NavBar.vue'
 import FooTer from '../components/FooTer.vue'
 import '../css/projectShow.css'
@@ -44,32 +46,12 @@ const route = useRoute()
 const project = ref(null)
 const currentImage = ref(0)
 
-// Functie om afbeeldingen vooraf te laden
-function preloadImages(images) {
-  images.forEach((src) => {
-    const img = new Image()
-    img.src = src
-  })
-}
-
 onMounted(async () => {
-  const { data, error } = await supabase
-    .from('projects')
-    .select('*')
-    .eq('id', route.params.id)
-    .single()
-
-  if (error) {
-    console.error('❌ Fout bij ophalen project:', error.message)
+  const snap = await getDoc(doc(db, 'projects', route.params.id))
+  if (snap.exists()) {
+    project.value = { id: snap.id, ...snap.data() }
   } else {
-    project.value = data
-  }
-})
-
-// Zodra project is geladen, preload alle afbeeldingen
-watch(project, (newVal) => {
-  if (newVal && newVal.images) {
-    preloadImages(newVal.images)
+    console.error('❌ Project niet gevonden')
   }
 })
 
@@ -87,7 +69,6 @@ const prevImage = () => {
 </script>
 
 <style scoped>
-/* ====== FADE ANIMATIE ====== */
 .fade-enter-active,
 .fade-leave-active {
   transition: opacity 0.6s ease;
@@ -97,8 +78,6 @@ const prevImage = () => {
 .fade-leave-to {
   opacity: 0;
 }
-
-/* ====== BASIS STIJLEN ====== */
 
 .imageCarousel {
   position: relative;
@@ -110,7 +89,7 @@ const prevImage = () => {
 .carouselImage {
   max-width: 100%;
   border-radius: 12px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
 }
 
 .carouselBtn:hover {
