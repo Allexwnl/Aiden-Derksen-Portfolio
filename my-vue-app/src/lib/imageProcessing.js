@@ -31,6 +31,13 @@ function blobToBase64(blob) {
   })
 }
 
+// Zet oude jsDelivr-URL's om naar raw GitHub. jsDelivr serveert sommige (nieuwe) repos
+// niet -> 503; raw werkt direct en is per commit-SHA permanent. Veilig op alle URL's.
+export const cdnUrl = (u) =>
+  typeof u === 'string'
+    ? u.replace(/https:\/\/cdn\.jsdelivr\.net\/gh\/([^@]+)@/, 'https://raw.githubusercontent.com/$1/')
+    : u
+
 export async function processImage(file, { maxFull = 2000, maxThumb = 800, quality = 0.82 } = {}) {
   const img = await loadImage(file)
   const [full, thumb] = await Promise.all([

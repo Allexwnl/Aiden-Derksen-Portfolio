@@ -28,7 +28,7 @@
           class="gallery-card"
           @click="goToProject(project.id)"
         >
-          <img :src="project.cover" :alt="project.title" loading="lazy" class="gallery-img" />
+          <img :src="cdnUrl(project.cover)" :alt="project.title" loading="lazy" class="gallery-img" />
           <div class="gallery-cap"><span>{{ project.title }}</span></div>
         </article>
       </div>
@@ -57,6 +57,7 @@ import '../css/homePageMobileFirst.css';
 import { db } from '../firebase/firebase.js'
 import { collection, query, orderBy, limit, startAfter, getDocs } from 'firebase/firestore'
 import { ref, onMounted } from 'vue'
+import { cdnUrl } from '../lib/imageProcessing.js'
 import { useRouter } from 'vue-router'
 
 const router = useRouter()

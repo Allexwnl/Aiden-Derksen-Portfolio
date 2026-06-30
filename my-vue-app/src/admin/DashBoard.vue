@@ -23,7 +23,7 @@
                 <p class="projectDescription">{{ project.description }}</p>
 
                 <div v-if="project.images.length" class="imageCarousel">
-                    <img :src="project.images[project.currentImage].thumb" class="carouselImage" />
+                    <img :src="cdnUrl(project.images[project.currentImage].thumb)" class="carouselImage" />
                     <button @click="prevImage(project)" class="carouselBtn prev">‹</button>
                     <button @click="nextImage(project)" class="carouselBtn next">›</button>
                 </div>
@@ -44,7 +44,7 @@ import { db } from '../firebase/firebase.js'
 import {
     collection, addDoc, getDocs, deleteDoc, doc, query, orderBy, serverTimestamp,
 } from 'firebase/firestore'
-import { processImage } from '../lib/imageProcessing.js'
+import { processImage, cdnUrl } from '../lib/imageProcessing.js'
 import { ref, onMounted } from 'vue'
 
 const title = ref('')

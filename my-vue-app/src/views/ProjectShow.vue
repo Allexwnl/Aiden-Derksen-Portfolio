@@ -14,7 +14,7 @@
         <transition name="fade" mode="out-in">
           <img
             :key="currentImage"
-            :src="project.images[currentImage].full"
+            :src="cdnUrl(project.images[currentImage].full)"
             class="carouselImage"
             alt="Project afbeelding"
             loading="lazy"
@@ -36,6 +36,7 @@ import { ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import { db } from '../firebase/firebase.js'
 import { doc, getDoc } from 'firebase/firestore'
+import { cdnUrl } from '../lib/imageProcessing.js'
 import NavBar from '../components/NavBar.vue'
 import FooTer from '../components/FooTer.vue'
 import '../css/projectShow.css'
